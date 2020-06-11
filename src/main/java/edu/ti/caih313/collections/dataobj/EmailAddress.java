@@ -5,7 +5,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class EmailAddress {
-    public enum Type {HOME, WORK, SCHOOL};
+    public enum Type {HOME, WORK, SCHOOL}
+
+    ;
     Map<Type, String> emailMap = new HashMap<>();
 
     public EmailAddress(String emailAddress, Type type) {
@@ -37,5 +39,25 @@ public class EmailAddress {
 
     boolean validate(String emailAddress) {
         return (emailAddress != null) && emailAddress.contains("@");
+    }
+
+    public String toString() {
+        StringBuilder emailListBuilder = new StringBuilder("Emails: <");
+        if (getEmailAddress() == null) {
+            emailListBuilder.append("no email address available");
+        }
+        if (emailMap.containsKey(Type.HOME)) {
+            emailListBuilder.append(Type.HOME).append(": ").append(emailMap.get(Type.HOME));
+            emailListBuilder.append(", ");
+        }
+        if (emailMap.containsKey(Type.WORK)) {
+            emailListBuilder.append(Type.WORK).append(": ").append(emailMap.get(Type.WORK));
+            emailListBuilder.append(", ");
+        }
+        if (emailMap.containsKey(Type.SCHOOL)) {
+            emailListBuilder.append(Type.SCHOOL).append(": ").append(emailMap.get(Type.SCHOOL));
+        }
+        emailListBuilder.append(">");
+        return emailListBuilder.toString();
     }
 }

@@ -2,12 +2,13 @@ package edu.ti.caih313.collections.dataobj;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.time.format.DateTimeFormatter;
 
 public class Person {
     private Name name;
     private Gender gender;
 
-    private EmailAddress emailAddress;
+    public EmailAddress emailAddress;
 
     private LocalDate birthDate;
 
@@ -38,10 +39,16 @@ public class Person {
 
     @Override
     public String toString() {
-        return "Person{" +
-                "name=" + name +
-                ", gender=" + gender +
-                ", birthDate=" + birthDate
-                + "}";
+        String primaryEmailAddress;
+        if (emailAddress == null)
+        {
+            primaryEmailAddress = "no emails available";
+        }
+        else {
+            primaryEmailAddress = emailAddress.getEmailAddress();
+        }
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("MMM d, yyyy 'CE'");
+        String bday = birthDate.format(format);
+        return String.format("Person{ name = %s, gender = %s, birthdate = %s, emails = %s", name, gender, bday, primaryEmailAddress);
     }
 }
